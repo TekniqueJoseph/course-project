@@ -12,7 +12,7 @@ import './App.css';
 //  apiKey: '5d7671cb138d46ce94681a0af05ba48a'
 // });
 
-const returnClarifaiRequestOptions = (imageURL) => {
+const returnClarifaiRequestOptions = (imageUrl) => {
       // Your PAT (Personal Access Token) can be found in the portal under Authentification
       const PAT = 'a3ef85ee7b7344f48235d5e58e9cdda2';
       // Specify the correct user_id/app_id pairings
@@ -21,7 +21,7 @@ const returnClarifaiRequestOptions = (imageURL) => {
       const APP_ID = 'mpcx';
       // Change these to whatever model and image URL you want to use
       const MODEL_ID = 'face-detection';  
-      const IMAGE_URL = imageURL;
+      const IMAGE_URL = imageUrl;
 
       const raw = JSON.stringify({
         "user_app_id": {
@@ -46,10 +46,8 @@ const returnClarifaiRequestOptions = (imageURL) => {
       },
       body: raw
   };
-
   return requestOptions
 }
-
 
 class App extends Component {
   constructor() {
@@ -73,7 +71,10 @@ class App extends Component {
     }
   }
 
-  
+  displayFaceBox = (box) => {
+    this.setState({box: box});
+  }
+
   onInputChange = (event) => {
     this.setState({input: event.target.value})
   }
@@ -103,8 +104,8 @@ class App extends Component {
   })
   .catch(err => console.log(err));
 }
-
   render(){
+    const { imageUrl, box } = this.state;
     return (
       <div className='App'>
         <ParticlesBg type="cobweb" bg={true} />
@@ -112,7 +113,7 @@ class App extends Component {
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-        <FaceRecognition imageUrl={this.state.imageUrl}/>
+        <FaceRecognition box={box} imageUrl={this.state.imageUrl}/>
       </div>
     )
   }
