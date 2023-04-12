@@ -108,7 +108,7 @@ class App extends Component {
     const { imageUrl, box } = this.state;
     return (
       <div className='App'>
-        <ParticlesBg type="cobweb" bg={true} />
+        
         <Navigation />
         <Logo />
         <Rank />
